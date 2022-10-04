@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout::main(
+        ~{::title},                 <!--/* title */-->
+        <!--/*--------------------------*/-->
+        <!--/*외부파일로 정의시 ex) link css */-->
+        ~{},                        <!--/* styles */-->
+        ~{},                        <!--/* scripts */-->
+        <!--/*내부태그로 정의시*/-->
+        ~{::style},                        <!--/* style */-->
+        ~{},                        <!--/* script */-->
+        <!--/*--------------------------*/-->
+        ~{::.upperHeader},          <!--/* upperHeader */-->
+        ~{::.nav},          <!--/* nav */-->
+        ~{::main},                  <!--/* main */-->
+        _                          <!--/* footer default*/-->
+      )}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="울산 문화 정보 사이트 메인 화면 기본 문서">
+  <meta name="keywords" content="울산,ulsan,information,홍보,advertisement,이벤트,event">
+  <meta name="author" content="KH java 할수있조">
+  <title>울산한마당 | 로그인화면</title>
+
+  <style>
+        .center__container .container__div .login__box .box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* outline: 1px solid gray; */
+            width: 90%;
+            position: relative;
+        }
+
+        /* 세부 css */
+
+        .login__id_box {
+            margin-top: 20px;
+            width: 80%;
+        }
+
+        /* ID(email) input */
+        .login__id_box input {
+            width: 100%;
+            height: 50px;
+            border-radius: 30px;
+            margin-top: 10px;
+            padding: 0px 20px;
+            border: 1px solid gray;
+            outline: none;
+        }
+
+        /* PW input */
+        .login__pw_box {
+            margin-top: 20px;
+            width: 80%;
+        }
+
+        .login__pw_box input {
+            width: 100%;
+            height: 50px;
+            border-radius: 30px;
+            margin-top: 10px;
+            padding: 0px 20px;
+            border: 1px solid gray;
+            outline: none;
+        }
+
+        .login__stay {
+            margin: 15px 0;
+        }
+
+        .login__btn {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .login__btn #loginBtn {
+            background-color: gray;
+            color: white;
+            border: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            height: 50px;
+            width: 200px;
+        }
+
+        .login__option {
+            display: flex;
+            justify-content: center;
+        }
+
+        .option {
+            margin: 0 5px;
+        }
+
+        .errmsg {
+          font-size:0.8em;
+          font-weight:bold;
+          color:red;
+        }
+        ul {
+          margin:0;padding:0
+        }
+        ul,li{
+          text-decoration:none;
+        }
+        .fieldError{
+          border:1px solid red;
+          color:red;
+        }
+        .fieldSuccess{
+          border:1px solid green;
+          color:green;
+        }
+    </style>
+</head>
+<body>
+  <div id="wrapper">
+    <div class="upperHeader">
+      <!--  layout/upperHeader가 경로인 파일의 beforeUpperHeader 조각을 replace 한다    -->
+      <th:block th:replace="~{layout/upperHeader::beforeUpperHeader}"></th:block>
+    </div>
+    <div class="nav">
+      <th:block th:replace="~{layout/nav::lowerHeader}"></th:block>
+    </div>
+
+
+    <!-- ======================================================================================================            -->
+    <main id="logInMain">
+      <div class="container">
+        <div class="info__title">
+          <h2 id="title">로그인</h2>
+        </div>
+
+        <div class="info__state">
+          <h3 id="state">로그인</h3>
+        </div>
+
+
+        <div class="center__container">
+          <div class="container__div">
+            <span class="common login__title">로그인 화면</span>
+            <div class="common login__box">
+              <form action="" class="box" th:method="post" th:object="${form}">
+                <ul th:if="${#fields.hasGlobalErrors()}">
+                  <li th:each="err:${#fields.globalErrors()}" th:text="${err}"></li>
+                </ul>
+
+
+                <div class="login__id_box">
+                  <h4>이메일</h4>
+                  <input type="email" th:field="*{email}" placeholder="example@google.com">
+                </div>
+                <div><span th:errors="*{email}"></span></div>
+                <div class="login__pw_box">
+                  <h4>비밀번호</h4>
+                  <input type="password" th:field="*{password}" placeholder="password">
+                </div>
+                <div><span th:errors="*{password}"></span></div>
+                <div class="login__stay">
+                  <input type="checkbox" name="" id=""> 로그인상태유지
+                </div>
+                <div class="login__btn">
+                  <button id="loginBtn">로그인</button>
+                </div>
+                <div class="login__option">
+                  <span class="option find__id"><a th:href="@{/members/findByEmail}">아이디 찾기</a></span>
+                  <span class="option find__pw"><a th:href="@{/members/findByPassword}">비밀번호 찾기</a></span>
+                  <span class="option joinMember" onclick=""><a  th:href="@{/members/sign_in}">회원가입</a></span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+      <!-- ======================================================================================================            -->
+
+
+  </div>
+</body>
+</html>

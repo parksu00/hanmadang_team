@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout::main(
+        ~{::title},                 <!--/* title */-->
+        <!--/*--------------------------*/-->
+        <!--/*외부파일로 정의시 ex) link css */-->
+        ~{},                        <!--/* styles */-->
+        ~{},                        <!--/* scripts */-->
+        <!--/*내부태그로 정의시*/-->
+        ~{},                        <!--/* style */-->
+        ~{},                        <!--/* script */-->
+        <!--/*--------------------------*/-->
+        ~{::.upperHeader},          <!--/* upperHeader */-->
+        ~{::.nav},          <!--/* nav */-->
+        ~{::main},                  <!--/* main */-->
+        _                          <!--/* footer default*/-->
+      )}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="울산 문화 정보 사이트 메인 화면 기본 문서">
+  <meta name="keywords" content="울산,ulsan,information,홍보,advertisement,이벤트,event">
+  <meta name="author" content="KH java 할수있조">
+  <title>울산한마당 | 내정보수정</title>
+
+</head>
+<body>
+  <div id="wrapper">
+    <div class="upperHeader">
+      <th:block th:replace="~{layout/upperHeader::afterUpperHeader}"></th:block>
+    </div>
+    <div class="nav">
+      <th:block th:replace="~{layout/nav::lowerHeader}"></th:block>
+    </div>
+
+
+    <!-- =========================================================================================== -->
+    <main id="myInfoMain">
+      <div class="container">
+        <div class="info__title">
+<!--          <h2 id="title">내 정보</h2>-->
+        </div>
+
+        <div class="info__state">
+          <h3 id="state">내 정보 수정</h3>
+        </div>
+
+        <div class="center__container">
+          <div class="container__div">
+            <span class="common pwd__title">내 정보 수정</span>
+            <span class="common pwd__sub">내 정보 수정을 희망하신다면 비밀번호를 입력하여 확인해주십시오</span>
+            <div class="common pwd__box">
+
+              <form class="box" action="" th:method="post" th:object="${form}" >
+                <div class="input__pwd">
+                  <label for="box__input">비밀번호 입력 </label>
+                  <input type="password" id="box__input" th:field="*{password}" th:errorclass="fieldError">
+                </div>
+                <div class="input__result"><span th:errors="*{password}"></span></div>
+                <div class="btn__box">
+                  <button class="btn btn_confirm" id="pwdChkBtn"><a th:href="@{/members/{email}/infoUpdate(email=${s_email})}">확인</a></button>
+                  <button class="btn btn_back" type="button"><a th:href="@{/members/{email}/info(email=${s_email})}">돌아가기</a></button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- =========================================================================================== -->
+
+  </div>
+</body>
+</html>
